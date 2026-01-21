@@ -1,0 +1,15 @@
+@startuml
+actor User
+participant "MainMenu" as Menu
+participant "BudgetCalc" as Calc
+database "CSV\n(budget.csv)" as DB
+
+User -> Menu: 3. Показать баланс
+Menu -> Calc: calculate_balance()
+Calc -> DB: load_transactions()
+DB --> Calc: data rows
+Calc -> Calc: sum_incomes() - sum_expenses()
+Calc -> Calc: forecast_end_of_month()
+Calc --> Menu: Баланс: 20,000₽\nПрогноз: 5,000₽
+Menu --> User: Таблица + прогноз
+@enduml
