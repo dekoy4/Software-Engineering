@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Пользователь" as User
+
+rectangle "Калькулятор бюджета" {
+  usecase "Добавить доход" as UC1
+  usecase "Добавить расход" as UC2
+  usecase "Посмотреть баланс" as UC3
+  usecase "Установить лимит" as UC4
+  usecase "Просмотр истории" as UC5
+  usecase "Сохранить данные" as UC6
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+@enduml
