@@ -1,0 +1,13 @@
+@startuml
+actor User
+participant "MainMenu" as Menu
+participant "BudgetCalc" as Calc
+participant "limits.json" as Limits
+
+User -> Menu: 4. Установить лимит
+Menu -> Calc: set_limit(category, amount)
+Calc -> Limits: update_or_create(category: amount)
+Limits --> Calc: saved
+Calc -> User: Лимит установлен
+note right: При следующем расходе\nпроверит автоматически
+@enduml
