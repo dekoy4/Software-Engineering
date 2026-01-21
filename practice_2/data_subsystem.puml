@@ -1,0 +1,54 @@
+@startuml
+class Transaction {
+  -id: int
+  -type: str ['income', 'expense']
+  -amount: float
+  -date: datetime
+  -category: str
+  -description: str
+  +validate(): bool
+  +to_dict(): dict
+}
+
+class Income {
+  +source: str
+}
+
+class Expense {
+  +check_limit(amount): bool
+}
+
+class BudgetCalculator {
+  -transactions: list[Transaction]
+  +add_income(): void
+  +add_expense(): void
+  +get_balance(): float
+  +forecast(): float
+}
+
+class CategoryLimit {
+  -category: str
+  -limit: float
+  -spent: float
+  +is_exceeded(amount): bool
+}
+
+class CSVStorage {
+  +load(): list[dict]
+  +save(transactions): void
+}
+
+class MenuUI {
+  +show_menu(): int
+  +get_input(): str
+}
+
+Transaction <|-- Income
+Transaction <|-- Expense
+BudgetCalculator --> "*" Transaction
+BudgetCalculator --> "*" CategoryLimit
+BudgetCalculator --> CSVStorage
+BudgetCalculator --> MenuUI
+
+note bottom: Подсистема: 12 сущностей\nХранение в CSV
+@enduml
