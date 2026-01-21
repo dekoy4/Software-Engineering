@@ -1,0 +1,17 @@
+@startuml
+actor User
+participant "MainMenu" as Menu
+participant "BudgetCalc" as Calc
+database "CSV\n(budget.csv)" as DB
+
+User -> Menu: 2. Добавить расход
+Menu -> Calc: add_expense(amount, category, date)
+Calc -> Calc: validate_amount(amount > 0)
+alt превышен лимит
+  Calc -> User: Предупреждение!
+end
+Calc -> DB: append_row()
+DB --> Calc: OK
+Calc --> Menu: Расход добавлен
+Menu --> User: Вернуться в меню
+@enduml
